@@ -4,22 +4,45 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buyItems: ['milk', 'sugar', 'coffee']
+      buyItems: ['milk', 'sugar', 'coffee'],
+      message: ''
     };
   }
 
   addItem(e) {
     e.preventDefault();
+    const { buyItems } = this.state;
     const newItem = this.newItem.value; // the value of the input
+    const alreadyOnTheList = buyItems.includes(newItem);
 
-    this.setState({
-      buyItems: [...this.state.buyItems, newItem] // old items (spread operator), new item
-    });
-
+    if ((newItem !== '') && (!alreadyOnTheList)) {
+      this.setState({
+        buyItems: [...this.state.buyItems, newItem], // old items (spread operator), new item
+        message: ''
+      });
+    } else if (alreadyOnTheList) {
+      this.setState({
+        message: 'This item is already on the list.'
+      });
+    }
     this.addForm.reset();
   }
+
+  removeItem(item) {
+    /* Getting the old state and filtering each item from the original state and
+    comparing the wantRemove item with the old "buyItem" to kick out the one we want.
+    */
+    const newBuyItems = this.state.buyItems.filter(buyItem =>
+      (
+        buyItem !== item
+      ));
+    this.setState({
+      buyItems: [...newBuyItems]
+    });
+  }
+
   render() {
-    const { buyItems } = this.state;
+    const { buyItems, message } = this.state;
     return (
       <div>
         <header>
@@ -45,6 +68,9 @@ class App extends React.Component {
           </form>
         </header>
         <div className="content">
+          {
+              message !== '' && <p className="message text-danger">{message}</p>
+          }
           <table className="table">
             <thead>
               <tr>
@@ -61,7 +87,14 @@ class App extends React.Component {
                     <tr key={item}>
                       <th scope="row">1</th>
                       <td>{item}</td>
-                      <td>Button</td>
+                      <td>
+                        <button
+                          onClick={() => { this.removeItem(item); }}
+                          type="button"
+                          className="btn btn-danger"
+                        >Remove
+                        </button>
+                      </td>
                     </tr>
                   ))
               }
