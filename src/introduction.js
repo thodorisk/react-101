@@ -39,6 +39,19 @@ class App extends React.Component {
     this.setState({
       buyItems: [...newBuyItems]
     });
+
+    if (newBuyItems.length === 0) {
+      this.setState({
+        message: 'No items in your shopping list, add some!!'
+      });
+    }
+  }
+
+  clearList() {
+    this.setState({
+      buyItems: [],
+      message: 'No items in your shopping list, add some!!'
+    });
   }
 
   render() {
@@ -69,37 +82,54 @@ class App extends React.Component {
         </header>
         <div className="content">
           {
-              message !== '' && <p className="message text-danger">{message}</p>
+              (message !== '' || buyItems.length === 0) && <p className="message text-danger">{message}</p>
           }
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Item</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                // Loop in order to add a table row each time.
-                buyItems.map(item =>
-                  (
-                    <tr key={item}>
-                      <th scope="row">1</th>
-                      <td>{item}</td>
-                      <td>
-                        <button
-                          onClick={() => { this.removeItem(item); }}
-                          type="button"
-                          className="btn btn-danger"
-                        >Remove
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-              }
-            </tbody>
-          </table>
+
+          {
+            buyItems.length > 0 &&
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Item</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  // Loop in order to add a table row each time.
+                  buyItems.map(item =>
+                    (
+                      <tr key={item}>
+                        <th scope="row">1</th>
+                        <td>{item}</td>
+                        <td>
+                          <button
+                            onClick={() => { this.removeItem(item); }}
+                            type="button"
+                            className="btn btn-danger"
+                          >Remove
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                }
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan="2">&nbsp;</td>
+                  <td className="text-right">
+                    <button
+                      onClick={() => { this.clearList(); }}
+                      type="button"
+                      className="btn btn-warning"
+                    >Clear List
+                    </button>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          }
         </div>
       </div>
     );
