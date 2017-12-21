@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thodorisk/webpack-101.git"
+    "url": "git+https://github.com/thodorisk/react-101.git"
   },
   "keywords": [
     "yarn",
@@ -25,9 +25,9 @@
   "author": "Thodoris Karagiannis",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/thodorisk/webpack-101/issues"
+    "url": "https://github.com/thodorisk/react-101/issues"
   },
-  "homepage": "https://github.com/thodorisk/webpack-101#readme",
+  "homepage": "https://github.com/thodorisk/react-101#readme",
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
     "font-awesome": "^4.7.0",
