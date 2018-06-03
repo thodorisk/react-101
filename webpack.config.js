@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const bootstrapEntryPoints = require('./webpack.bootstrap.config');
 const glob = require('glob');
-const PurifyCSSPlugin = require('purifycss-webpack');
+// const PurifyCSSPlugin = require('purifycss-webpack');
 
 // CSS configuration
 const cssProd = ExtractTextPlugin.extract({
@@ -87,7 +87,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Homepage',
-      hash: true,
       excludeChunks: ['about'],
       template: './src/index.html'
     }),
@@ -99,7 +98,7 @@ module.exports = {
       template: './src/about.html'
     }),
     new ExtractTextPlugin({
-      filename: '/css/[name].css',
+      filename: '[name].css',
       disable: process.env.NODE_ENV === 'development',
       allChunks: true
     }),
@@ -108,10 +107,10 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       postcss: [autoprefixer]
     }),
-    new PurifyCSSPlugin({
-      paths: glob.sync(path.join(__dirname, 'src/*.html')),
-      purifyOptions: { minify: true }
-    }),
+    // new PurifyCSSPlugin({
+    //   paths: glob.sync(path.join(__dirname, 'src/*.html')),
+    //   purifyOptions: { minify: true }
+    // }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',

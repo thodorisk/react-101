@@ -43,5 +43,5 @@ if (bootstraprcCustomLocation) {
 
 module.exports = {
   dev: bootstrapDevEntryPoint,
-  prod: bootstrapProdEntryPoint,
+  prod: bootstrapProdEntryPoint
 };
